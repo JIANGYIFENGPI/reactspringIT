@@ -1,3 +1,4 @@
+//https://github.com/oktadeveloper/okta-spring-boot-react-crud-example
 import React, { Component } from 'react';
 import './App.css';
 import GroupEdit from './GroupEdit';
@@ -6,18 +7,6 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import GroupList from './GroupList';
 
 class App extends Component {
-  state = {
-    isLoading: true,
-    groups: []
-  };
-
-  async componentDidMount() {
-    const response = await fetch('/api/groups');
-    const body = await response.json();
-    this.setState({ groups: body, isLoading: false });
-  }
-
-
   render() {
     return (
       <Router>
