@@ -14,5 +14,10 @@ java -jar target/reactspring-0.0.1-SNAPSHOT.jar
 Download and install a Rest Client -plugin to Firefox and
 * Headers-Customer headers set Content-type/Application/JSON
 
+### In case React pakages are missing (at app-folder)
+
+npm install reactstrap
+npm install react-router-dom
+
 The library Lombok can cause problems in IDE, then just reinstall Lombok and restart the IDE.
 
