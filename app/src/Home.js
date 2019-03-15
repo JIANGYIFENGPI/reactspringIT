@@ -11,6 +11,7 @@ class Home extends Component {
         <AppNavbar/>
         <Container fluid>
           <Button color="link"><Link to="/groups">Manage JUG Tour</Link></Button>
+          <Button color="link"><Link to="/users">Manage users</Link></Button>
         </Container>
       </div>
     );
