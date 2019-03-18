@@ -13,22 +13,26 @@ class UserList extends Component {
 
   componentDidMount() {
     this.setState({isLoading: true});
-
+    console.log("Readin from database");
     fetch('api/users')
       .then(response => response.json())
       .then(data => this.setState({users: data, isLoading: false}));
   }
 
-  async remove(id) {
-    await fetch(`/api/user/${id}`, {
+  async remove(name) {
+    await fetch(`/api/user/${name}`, {
       method: 'DELETE',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       }
     }).then(() => {
-      let updatedUsers = [...this.state.users].filter(i => i.id !== id);
-      this.setState({users: updatedUsers});
+      //need to read from database because no id to compare
+      fetch('api/users')
+      .then(response => response.json())
+      .then(data => this.setState({users: data, isLoading: false}));
+      //let updatedUsers = [...this.state.users].filter(i => i.name !== name);
+      //this.setState({users: updatedUsers});
     });
   }
 
@@ -40,13 +44,13 @@ class UserList extends Component {
     }
 
     const UserList = users.map(user => {
-      return <tr key={user.id}>
+      return <tr key={user.name}>
         <td style={{whiteSpace: 'nowrap'}}>{user.name}</td>
         <td style={{whiteSpace: 'nowrap'}}>{user.email}</td>
         <td>
           <ButtonGroup>
-            <Button size="sm" color="primary" tag={Link} to={"/users/" + user.id}>Edit</Button>
-            <Button size="sm" color="danger" onClick={() => this.remove(user.id)}>Delete</Button>
+            <Button size="sm" color="primary" tag={Link} to={"/users/" + user.name}>Edit</Button>
+            <Button size="sm" color="danger" onClick={() => this.remove(user.name)}>Delete</Button>
           </ButtonGroup>
         </td>
       </tr>

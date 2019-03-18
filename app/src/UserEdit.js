@@ -4,7 +4,6 @@ import { Button, Container, Form, FormGroup, Input, Label } from 'reactstrap';
 import AppNavbar from './AppNavbar';
 
 class UserEdit extends Component {
-
   emptyItem = {
     name: '',
     email: ''
@@ -13,14 +12,18 @@ class UserEdit extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      item: this.emptyItem
+      item: this.emptyItem,
+      editMode : true
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+
   async componentDidMount() {
     if (this.props.match.params.id !== 'new') {
+      this.setState({editMode: false});     //to disable changing the name
+      //console.log("Editing old " + this.state.editMode);
       const user = await (await fetch(`/api/user/${this.props.match.params.id}`)).json();
       this.setState({item: user});
     }
@@ -52,8 +55,7 @@ class UserEdit extends Component {
 
   render() {
     const {item} = this.state;
-    const title = <h2>{item.id ? 'Edit USer' : 'Add User'}</h2>;
-
+    const title = <h2>{item.name ? 'Edit User' : 'Add User'}</h2>;
     return <div>
       <AppNavbar/>
       <Container>
@@ -61,12 +63,12 @@ class UserEdit extends Component {
         <Form onSubmit={this.handleSubmit}>
           <FormGroup>
             <Label for="name">Name</Label>
-            <Input type="text" name="name" id="name" value={item.name || ''}
+            <Input type="text" readOnly={!this.state.editMode}  name="name" id="name" value={item.name || ''} //in case new readOnly is false 
                    onChange={this.handleChange} autoComplete="name"/>
           </FormGroup>
           <FormGroup>
-            <Label for="email">Address</Label>
-            <Input type="text" name="email" id="email" value={item.address || ''}
+            <Label for="email">Email</Label>
+            <Input type="email" name="email" id="email" value={item.email || ''}
                    onChange={this.handleChange} autoComplete="email"/>
           </FormGroup>
           <FormGroup>

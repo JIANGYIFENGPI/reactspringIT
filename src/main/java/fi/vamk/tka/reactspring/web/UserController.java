@@ -30,9 +30,9 @@ class UserController {
         return userRepository.findAll();
     }
 
-    @GetMapping("/user/{id}")
-    ResponseEntity<?> getUser(@PathVariable Long id) {
-        Optional<User> user = userRepository.findById(id);
+    @GetMapping("/user/{name}")
+    ResponseEntity<?> getUser(@PathVariable String name) {
+        Optional<User> user = userRepository.findByName(name);
         return user.map(response -> ResponseEntity.ok().body(response))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
@@ -41,7 +41,7 @@ class UserController {
     ResponseEntity<User> createuser(@Valid @RequestBody User user) throws URISyntaxException {
         log.info("Request to create user: {}", user);
         User result = userRepository.save(user);
-        return ResponseEntity.created(new URI("/api/user/" + result.getId()))
+        return ResponseEntity.created(new URI("/api/user/" + result.getName()))
                 .body(result);
     }
 
@@ -52,10 +52,10 @@ class UserController {
         return ResponseEntity.ok().body(result);
     }
 
-    @DeleteMapping("/user/{id}")
-    public ResponseEntity<?> deleteuser(@PathVariable Long id) {
-        log.info("Request to delete user: {}", id);
-        userRepository.deleteById(id);
+    @DeleteMapping("/user/{name}")
+    public ResponseEntity<?> deleteuser(@PathVariable String name) {
+        log.info("Request to delete user: {}", name);
+        userRepository.deleteByName(name);
         return ResponseEntity.ok().build();
     }
 }

@@ -6,6 +6,7 @@ import Home from './Home';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import GroupList from './GroupList';
 import UserList from './UserList';
+import UserEdit from './UserEdit';
 
 class App extends Component {
   render() {
@@ -16,6 +17,7 @@ class App extends Component {
           <Route path='/groups' exact={true} component={GroupList}/>
           <Route path='/users' exact={true} component={UserList}/>
           <Route path='/groups/:id' component={GroupEdit}/>
+          <Route path='/users/:id' component={UserEdit}/>
         </Switch>
       </Router>
     )
