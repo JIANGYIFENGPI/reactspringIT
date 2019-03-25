@@ -20,7 +20,7 @@ class EventUser extends Component {
     this.setState({event: anEvent});
     this.setState({users: theUsers});
     this.setState({isLoading:false});
-    console.log(JSON.stringify(theUsers));
+    //console.log(JSON.stringify(anEvent.attendees));
   }
 
   check(event){
@@ -33,11 +33,19 @@ class EventUser extends Component {
       return <p>Loading...</p>;
     }
     
+    //check if the username already exists in the attandees
     const userList = usersHere.map(user => {
+      var found = false;
+      for(var i=0;i<this.state.event.attendees.length;i++){
+        if(this.state.event.attendees[i].name==user.name){
+          found = true;
+        }
+      }
       return <tr key={user.name}>
         <td style={{whiteSpace: 'nowrap'}}>{user.name}</td>
         <td>
-          <input type="checkbox" name={user.name} checked={true} onChange={this.check}>
+          
+          <input type="checkbox" name={user.name} checked={found} onChange={this.check}>
           </input>
         </td>
       </tr>
@@ -52,7 +60,7 @@ class EventUser extends Component {
             <thead>
             <tr>
               <th width="20%">Name</th>
-              <th width="30%">Registrated</th>
+              <th width="30%">Booked</th>
             </tr>
             </thead>
             <tbody>
