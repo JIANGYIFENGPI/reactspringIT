@@ -9,6 +9,7 @@ import UserList from './UserList';
 import EventList from './EventList';
 import UserEdit from './UserEdit';
 import EventEdit from './EventEdit';
+import EventUser from './EventUser';
 
 class App extends Component {
   render() {
@@ -22,6 +23,7 @@ class App extends Component {
           <Route path='/users/:id' component={UserEdit}/>
           <Route path='/groups/:id' component={GroupEdit}/>
           <Route path='/events/:id' component={EventEdit}/>
+          <Route path='/eventusers/:id' component={EventUser}/>
         </Switch>
       </Router>
     )
