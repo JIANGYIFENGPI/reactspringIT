@@ -37,12 +37,12 @@ class GroupEdit extends Component {
     let item = {...this.state.item};
     item[name] = value;
     this.setState({item});
+
   }
 
   async handleSubmit(event) {
     event.preventDefault();
     const {item} = this.state;
-
     await fetch('/api/group', {
       method: (item.id) ? 'PUT' : 'POST',
       headers: {
