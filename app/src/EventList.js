@@ -7,7 +7,7 @@ class EventList extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {events: [], isLoading: true};
+    this.state = {events: [], selectedEvent:{}, isLoading: true};
     this.remove = this.remove.bind(this);
   }
 
@@ -50,6 +50,7 @@ class EventList extends Component {
           <ButtonGroup>
             <Button size="sm" color="primary" tag={Link} to={"/events/" + event.id}>Edit</Button>
             <Button size="sm" color="danger" onClick={() => this.remove(event.id)}>Delete</Button>
+            <Button size="sm" color="info" tag={Link} to={"/eventusers/" + event.id}>Add participants</Button>
           </ButtonGroup>
         </td>
       </tr>
@@ -66,9 +67,9 @@ class EventList extends Component {
           <Table className="mt-4">
             <thead>
             <tr>
-              <th width="30%">Date</th>
+              <th width="20%">Date</th>
               <th width="30%">Title</th>
-              <th width="40%">Description</th>
+              <th width="30%">Description</th>
             </tr>
             </thead>
             <tbody>
